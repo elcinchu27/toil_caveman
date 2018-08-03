@@ -57,7 +57,6 @@ class StepRunner(ContainerJob):
             cores=kwargs.pop('cores', 1),
             **kwargs)
 
-
     def run(self, fileStore):
         cmd = [
             'caveman.pl',
