@@ -1,0 +1,16 @@
+[paths]
+source =
+   toil_caveman
+   */toil_caveman
+
+[run]
+source =
+    toil_caveman
+
+omit =
+    *toil_caveman/__main__.py
+
+[report]
+exclude_lines =
+    pragma: no cover
+    if __name__ == .__main__.:
