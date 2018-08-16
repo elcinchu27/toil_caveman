@@ -1,4 +1,4 @@
-FROM leukgen/docker-caveman:v0.1.0
+FROM leukgen/docker-cgp
 
 # mount the output volume as persistant
 ENV OUTPUT_DIR /data
