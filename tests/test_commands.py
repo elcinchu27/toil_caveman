@@ -30,7 +30,7 @@ def test_caveman(tmpdir):
         '--normal-bam', join(DATA, 'normal', 'normal.bam'),
         '--species', 'Human',
         '--species-assembly', 'GRCh37d5',
-        '--germline-indel', join(DATA, 'caveman', 'germline_indel.bed'),
+        '--germline-indel', join(DATA, 'caveman', 'germline_indel.bed.gz'),
         '--unmatched-vcf', join(DATA, 'caveman'),
         '--normal-cn', join(DATA, 'caveman', 'caveman_cn.txt'),
         '--tumour-cn', join(DATA, 'caveman', 'caveman_cn.txt'),
@@ -48,7 +48,7 @@ def test_caveman(tmpdir):
     assert isfile(expected), 'Missing expected output: ' + expected
 
 
-@pytest.mark.skipif(True,reason="Un comment this skip.")
+@pytest.mark.skipif(True, reason="Un comment this skip.")
 def test_caveman_at_juno(tmpdir):
     """
     Sample test for the main command.
