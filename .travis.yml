@@ -25,4 +25,4 @@ deploy:
     tags: true
     repo: leukgen/toil_caveman
     python: 2.7
-    branch: master
+    all_branches: true
