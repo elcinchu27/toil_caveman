@@ -5,6 +5,7 @@
 [![codecov badge][codecov_badge]][codecov_base]
 [![docker badge][docker_badge]][docker_base]
 [![docker badge][automated_badge]][docker_base]
+[![code formatting][black_badge]][black_base]
 
 A toil wrapper for cgpCaveman.
 
@@ -48,14 +49,11 @@ Contributions are welcome, and they are greatly appreciated, check our [contribu
 This package was created using [Cookiecutter] and the
 [leukgen/cookiecutter-toil] project template.
 
-<!-- References -->
 [singularity]: http://singularity.lbl.gov/
 [docker2singularity]: https://github.com/singularityware/docker2singularity
 [cookiecutter]: https://github.com/audreyr/cookiecutter
 [leukgen/cookiecutter-toil]: https://github.com/leukgen/cookiecutter-toil
 [`--batchSystem`]: http://toil.readthedocs.io/en/latest/developingWorkflows/batchSystem.html?highlight=BatchSystem
-
-<!-- Badges -->
 [docker_base]: https://hub.docker.com/r/leukgen/toil_caveman
 [docker_badge]: https://img.shields.io/docker/build/leukgen/toil_caveman.svg
 [automated_badge]: https://img.shields.io/docker/automated/leukgen/toil_caveman.svg
@@ -65,3 +63,5 @@ This package was created using [Cookiecutter] and the
 [pypi_base]: https://pypi.python.org/pypi/toil_caveman
 [travis_badge]: https://img.shields.io/travis/leukgen/toil_caveman.svg
 [travis_base]: https://travis-ci.org/leukgen/toil_caveman
+[black_badge]: https://img.shields.io/badge/code%20style-black-000000.svg
+[black_base]: https://github.com/ambv/black
