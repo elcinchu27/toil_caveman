@@ -4,7 +4,7 @@ FROM leukgen/docker-caveman:v0.1.0
 ENV OUTPUT_DIR /data
 VOLUME ${OUTPUT_DIR}
 
-# install toil_pindel
+# install toil_caveman
 COPY . /code
 RUN pip install /code && rm -rf /code
 

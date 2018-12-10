@@ -165,7 +165,7 @@ def run_toil(options):
 def get_parser():
     """Get pipeline configuration using toil's argparse."""
     parser = ContainerArgumentParser(version=__version__)
-    parser.description = "Run toil_pindel pipeline."
+    parser.description = "Run toil_caveman pipeline."
     settings = parser.add_argument_group("See caveman.pl --help.")
 
     for i in ARGUMENTS:
