@@ -52,7 +52,7 @@ class StepRunner(ContainerJob):
         super(StepRunner, self).__init__(
             unitName="Caveman%s %s" % (process.capitalize(), index),
             displayName="Caveman%s" % process.capitalize(),
-            memory=options.max_memory_usage or kwargs.pop("memory", "10G"),
+            memory=options.max_memory_usage or kwargs.pop("memory", "5G"),
             options=options,
             cores=kwargs.pop("cores", 1),
             **kwargs
@@ -125,14 +125,18 @@ class SplitRunner(ContainerJob):
         for i in self.split_list_range():
             self.addChild(
                 StepRunner(
-                    process=self.process, runtime=120, index=i, options=self.options
+                    process=self.process,
+                    runtime=self.options.short_job,
+                    index=i,
+                    options=self.options,
+                    memory="5G",
                 )
             )
 
 
 def run_toil(options):
     """Toil implementation for cgpCaveman."""
-    defaults = dict(runtime=120, options=options)
+    defaults = dict(runtime=options.short_job, options=options, memory="5G")
     setup = StepRunner(process="setup", **defaults)
     split = Split(**defaults)
     remove = RemoveContigs(**defaults)
@@ -173,6 +177,10 @@ def get_parser():
 
     settings.add_argument(
         "--max_memory_usage", help="max ram usage e.g. 1G, 1000M", default=None
+    )
+
+    settings.add_argument(
+        "--short_job", help="runtime of short jobs", default=90, required=False
     )
 
     return parser
