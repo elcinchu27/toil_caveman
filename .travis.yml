@@ -1,28 +1,22 @@
 language: python
-
 python:
-  - 2.7
-
+- 2.7
 services:
-  - docker
-
+- docker
 install:
-  - pip install -U codecov
-
+- pip install -U codecov
 script:
-  - bash test-container.sh
-
+- bash test-container.sh
 after_success:
-  - codecov
-
+- codecov
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
-  user: leukgen
+  user: papaemmelab
   password:
-    secure: mmb9UMHiyUqBXNIyD30e5eTVRsXIYu5ZtlAAkIkYYbxiurnBbGJkRpoEDOCmC8oBICFA6hrVyuZnErtnNiqMIDT3OGm0lLCdvVXX9RR3drD0cXXO3UTtl4/854oe5xGXSUfxGqlQOe+7C+n8FtsLVI8mo/lYiBYvdr+eo0pHyQEIqdCNZ5h7wxuRRy9h6fjQSelgBVa2PaZ2YY1vGETmbBkyPGrss+L2JNLl6mGa6qfPCGA7Jg+4WEqUeedRe2zKWjg0PTb68K8SxclEe6rWAeGFv8U5wn+jVKDNes5ZmlLUqH0q86ZwQBlJCm+r1fQaWCWAIKmOIf9b8S2YRm8cDYWkENtkp+MxXOatt3p9fi3i0gSs8Y4fwjx00IUV6mkof9NkKIdA1F5WrQW7z2qtASZyD3HJU+78vNTytpIVsjA9MI67+CsfEpz1AZPP60giH6aqWe5JGUKhO55UK/GOLAp2YZSt9P+AVYvoX9D8nLhGb2LVcp06QEC3Efy9tjV56ZQwuexk2ZZEIFl2575nk6f7IgwWYINmCFef2hsy6oMI2Te2P9sf34EJqiWAn53ffxqyoGB++3qyOdX1o1w2xhfDzz/9iZS1/lzkNgd+kMAfPB7+WTm50OcsSjXiD6kcA2u0kejuNpBMs8YsZ2hXonBEr3hGOYtQBJ2jhWcJQ00=
+    secure: Rv50HrKa4G6LSkafrNKPwmJGC4QnmTunuJoJudIqhE96+QKCesnbQfJA32WZjHOkHes0CZMcFu9xpyLjUyNRYc6sE+HQvoL/dtiL3PbLbHNCBFryF8dTSt+LR4/CajUXbPdeRgZ4276Li6LMicwWU8tQAnHPPwI3MOCtZdiflxY7OSO487MZVZ3HxMg5+sF/7zYXrImR88eX81excYaCYz5yGHpz44YzqwN6Nn5YAL8Id+GEZ6TzHC5OVdI6q83VYDcesA1sx36ki0b2utQD3JJwkyLaQStZYjA/wIC88az+npzo1Ka2SyNABQJyHcBMBmKSfLQeSKVgeVU9lu5JflND4lT/9MchRcJ8U9egCuq7UKmpC1IcK1sb3bsiDB5Tc4G2y2cDYHKinQh49SPlxXiGYpTJuYvqhsUfzO7LBc0rujbux8HbdbwbMfsNNO1LNLy+bQ+Qcu+5VqSUjf1KBZeR2D71BeHBEKBmKj5AsVbky9DF18+Wva0/h8vkBLAFzxGGb25lLGzgpzVg1245drZwrkO2nQ0gUHXY/xvVUisCVrKC9tGkZ8+uQ7JQj5RIKPZvsUxRh1pWgM8/EVbbl/b5yiv2IABm9+pEx156HjgAII19sznhWwAB0ojTFjZe1j380AEL3tFT7Cdl2uzgLyYbG756kAFY7dXpxzowoUw=
   on:
     tags: true
-    repo: leukgen/toil_caveman
+    repo: papaemmelab/toil_caveman
     python: 2.7
     all_branches: true

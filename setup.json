@@ -18,7 +18,7 @@
         "pytest-runner==2.11.1"
     ],
     "install_requires": [
-        "toil_container==1.0.0",
+        "toil_container==1.1.1",
         "Click==6.7"
     ],
     "extras_require": {
@@ -37,7 +37,7 @@
     "license": "BSD",
     "name": "toil_caveman",
     "test_suite": "tests",
-    "long_description": "📘 learn more on `GitHub <https://github.com/leukgen/toil_caveman>`_!",
+    "long_description": "📘 learn more on `GitHub <https://github.com/papaemmelab/toil_caveman>`_!",
     "description": "A toil wrapper for cgpCaveman.",
-    "url": "https://github.com/leukgen/toil_caveman"
+    "url": "https://github.com/papaemmelab/toil_caveman"
 }

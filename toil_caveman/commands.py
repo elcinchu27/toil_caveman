@@ -36,7 +36,19 @@ ARGUMENTS = [
 ]
 
 
-class StepRunner(ContainerJob):
+class CavemanCommand(ContainerJob):
+    def __init__(self, options, memory="5G", **kwargs):
+        """All steps are short low memory jobs unless otherwise specified."""
+        super(CavemanCommand, self).__init__(
+            memory=options.max_memory_usage or memory,
+            options=options,
+            cores=kwargs.pop("cores", 1),
+            runtime=kwargs.pop("runtime", options.short_job),
+            **kwargs
+        )
+
+
+class StepRunner(CavemanCommand):
     def __init__(self, process, options, index=1, **kwargs):
         """
         Add the caveman process and index as attributes.
@@ -52,9 +64,7 @@ class StepRunner(ContainerJob):
         super(StepRunner, self).__init__(
             unitName="Caveman%s %s" % (process.capitalize(), index),
             displayName="Caveman%s" % process.capitalize(),
-            memory=options.max_memory_usage or kwargs.pop("memory", "10G"),
             options=options,
-            cores=kwargs.pop("cores", 1),
             **kwargs
         )
 
@@ -80,10 +90,9 @@ class StepRunner(ContainerJob):
         # run the command and allow file system to register output files
         cmd = list(map(str, cmd))
         self.call(cmd, cwd=self.options.outdir)
-        fileStore.logToMaster("\n\nRan: " + " ".join(cmd))
 
 
-class Split(ContainerJob):
+class Split(CavemanCommand):
     def run(self, fileStore):
         with open(self.options.reference) as f:
             for ix, i in enumerate(f):
@@ -93,7 +102,7 @@ class Split(ContainerJob):
                     )
 
 
-class RemoveContigs(ContainerJob):
+class RemoveContigs(CavemanCommand):
     def run(self, fileStore):
         tmpdir = join(self.options.outdir, "tmpCaveman")
         delete = list(glob(join(tmpdir, "splitList.GL*")))
@@ -108,7 +117,7 @@ class RemoveContigs(ContainerJob):
                 pass
 
 
-class SplitRunner(ContainerJob):
+class SplitRunner(CavemanCommand):
     def __init__(self, process, **kwargs):
         self.process = process
         super(SplitRunner, self).__init__(**kwargs)
@@ -124,25 +133,22 @@ class SplitRunner(ContainerJob):
     def run(self, fileStore):
         for i in self.split_list_range():
             self.addChild(
-                StepRunner(
-                    process=self.process, runtime=120, index=i, options=self.options
-                )
+                StepRunner(process=self.process, index=i, options=self.options)
             )
 
 
 def run_toil(options):
     """Toil implementation for cgpCaveman."""
-    defaults = dict(runtime=120, options=options)
-    setup = StepRunner(process="setup", **defaults)
-    split = Split(**defaults)
-    remove = RemoveContigs(**defaults)
-    concat = StepRunner(process="split_concat", **defaults)
-    mstep = SplitRunner(process="mstep", **defaults)
-    merge = StepRunner(process="merge", **defaults)
-    estep = SplitRunner(process="estep", **defaults)
-    results = StepRunner(process="merge_results", **defaults)
-    add_ids = StepRunner(process="add_ids", **defaults)
-    flag = StepRunner(process="flag", options=options)
+    setup = StepRunner(process="setup", options=options)
+    split = Split(options=options)
+    remove = RemoveContigs(options=options)
+    concat = StepRunner(process="split_concat", options=options)
+    mstep = SplitRunner(process="mstep", options=options)
+    merge = StepRunner(process="merge", options=options)
+    estep = SplitRunner(process="estep", options=options)
+    results = StepRunner(process="merge_results", options=options)
+    add_ids = StepRunner(process="add_ids", options=options)
+    flag = StepRunner(process="flag", options=options, runtime=None)
 
     # build dag
     setup.addFollowOn(split)
@@ -165,7 +171,7 @@ def run_toil(options):
 def get_parser():
     """Get pipeline configuration using toil's argparse."""
     parser = ContainerArgumentParser(version=__version__)
-    parser.description = "Run toil_pindel pipeline."
+    parser.description = "Run toil_caveman pipeline."
     settings = parser.add_argument_group("See caveman.pl --help.")
 
     for i in ARGUMENTS:
@@ -173,6 +179,10 @@ def get_parser():
 
     settings.add_argument(
         "--max_memory_usage", help="max ram usage e.g. 1G, 1000M", default=None
+    )
+
+    settings.add_argument(
+        "--short_job", help="runtime of short jobs", default=90, required=False
     )
 
     return parser
