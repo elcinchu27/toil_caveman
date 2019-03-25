@@ -55,8 +55,8 @@ This package was created using [Cookiecutter] and the
 [papaemmelab/cookiecutter-toil]: https://github.com/papaemmelab/cookiecutter-toil
 [`--batchSystem`]: http://toil.readthedocs.io/en/latest/developingWorkflows/batchSystem.html?highlight=BatchSystem
 [docker_base]: https://hub.docker.com/r/papaemmelab/toil_caveman
-[docker_badge]: https://img.shields.io/docker/build/papaemmelab/toil_caveman.svg
-[automated_badge]: https://img.shields.io/docker/automated/papaemmelab/toil_caveman.svg
+[docker_badge]: https://img.shields.io/docker/cloud/build/papaemmelab/toil_caveman.svg
+[automated_badge]: https://img.shields.io/docker/cloud/automated/papaemmelab/toil_caveman.svg
 [codecov_badge]: https://codecov.io/gh/papaemmelab/toil_caveman/branch/master/graph/badge.svg
 [codecov_base]: https://codecov.io/gh/papaemmelab/toil_caveman
 [pypi_badge]: https://img.shields.io/pypi/v/toil_caveman.svg
